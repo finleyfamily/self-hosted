@@ -1,0 +1,16 @@
+  - name: Run Darwin specific tasks
+    ansible.builtin.import_tasks: darwin.yml
+    when: ansible_facts['os_family']|lower == "darwin"
+
+  - name: Run Debian specific tasks
+    ansible.builtin.import_tasks: debian.yml
+    when: ansible_facts['os_family']|lower == "debian"
+
+  - name: Run RedHat specific tasks
+    ansible.builtin.import_tasks: redhat.yml
+    when: ansible_facts['os_family']|lower == "redhat"
+
+  - name: Install pyenv
+    ansible.builtin.import_tasks: install.yml
+    become: true
+    become_user: "{{ pyenv_owner }}"

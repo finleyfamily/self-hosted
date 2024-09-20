@@ -1,0 +1,16 @@
+  - name: Install packages
+    import_tasks: install-packages.yml
+
+  - name: Install pyenv
+    include_role:
+      name: pyenv
+    when: install_pyenv|bool
+
+  - name: Install Docker
+    include_role:
+      name: docker
+    when: install_docker|bool
+
+  - name: Install chezmoi
+    include_role:
+      name: chezmoi

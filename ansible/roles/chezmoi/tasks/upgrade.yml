@@ -1,0 +1,3 @@
+  - name: Upgrade chezmoi
+    shell: '{{ bin_dir }}/chezmoi upgrade'
+    when: ansible_facts['distribution']|lower != 'macosx'

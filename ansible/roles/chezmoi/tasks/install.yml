@@ -1,0 +1,7 @@
+  - name: Download install script
+    ansible.builtin.get_url:
+      url: https://get.chezmoi.io
+      dest: /tmp/install_chezmoi.sh
+      mode: 0755
+  - name: Run install script
+    shell: /tmp/install_chezmoi.sh -b "{{ bin_dir }}"

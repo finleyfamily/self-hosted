@@ -1,0 +1,8 @@
+  - name: Initialize nodes
+    hosts:
+      - tpi2-node3
+    tasks:
+      - name: Include "ubuntu" role
+        include_role:
+          name: ubuntu
+        when: ansible_facts['distribution']|lower == 'ubuntu'

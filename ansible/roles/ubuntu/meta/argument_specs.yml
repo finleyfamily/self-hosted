@@ -1,0 +1,14 @@
+argument_specs:
+  main:
+    short_description: Main entrypoint for the Ubuntu role
+    options:
+      install_docker:
+        type: bool
+        required: false
+        default: true
+        description: Whether to install Docker.
+      install_pyenv:
+        type: bool
+        required: false
+        default: true
+        description: Whether to install pyenv.

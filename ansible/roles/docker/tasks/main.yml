@@ -1,0 +1,4 @@
+  - name: Run Debian specific tasks
+    ansible.builtin.import_tasks: ubuntu.yml
+    become: true
+    when: ansible_facts['distribution']|lower == 'ubuntu'

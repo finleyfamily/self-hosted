@@ -1,0 +1,55 @@
+pyenv_version: HEAD
+pyenv_path: "{{ ansible_env.HOME }}/.pyenv"
+pyenv_owner: "{{ ansible_user_id }}"
+pyenv_owner_group: "{{ pyenv_owner }}"
+pyenv_update_git_install: true
+
+install_pyenv_plugin_ccache: true
+pyenv_plugin_ccache_version: HEAD
+
+install_pyenv_plugin_default_packages: true
+pyenv_plugin_default_packages_version: HEAD
+
+install_pyenv_plugin_doctor: true
+pyenv_plugin_doctor_version: HEAD
+
+install_pyenv_plugin_update: true
+pyenv_plugin_update_version: HEAD
+
+pyenv_debian_packages:
+  - build-essential
+  - ccache
+  - curl
+  - git
+  - llvm
+  - libbz2-dev
+  - libffi-dev
+  - liblzma-dev
+  - libncurses-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - libssl-dev
+  - python3-openssl
+  - tk-dev
+  - wget
+  - xz-utils
+  - zlib1g-dev
+  - libxml2-dev
+  - libxmlsec1-dev
+
+pyenv_redhat_packages:
+  - make
+  - git
+  - gcc
+  - "{{ ((ansible_facts['distribution_major_version'] | default(0) | int) < 8) | ternary('libselinux-python', 'python3-libselinux') }}"
+  - zlib-devel
+  - openssl-devel
+  - bzip2-devel
+  - readline-devel
+  - libffi-devel
+  - sqlite-devel
+  - gdbm-devel
+
+pyenv_osx_packages:
+  - readline
+  - xz

@@ -1,0 +1,39 @@
+  - name: Get the non-root user
+    ansible.builtin.set_fact:
+      original_user: '{{ ansible_env.get("SUDO_USER") or ansible_user_id }}'
+  - name: Install packages
+    ansible.builtin.apt:
+      name:
+        - bat
+        - build-essential
+        - ca-certificates
+        - curl
+        - direnv
+        - git
+        - net-tools
+        - zsh
+        - zsh-syntax-highlighting
+      state: present
+      update_cache: true
+    become: true
+  - name: Ensure ".local/bin" directories
+    ansible.builtin.file:
+      group: '{{ item }}'
+      owner: '{{ item }}'
+      path: /home/{{ item }}/.local/bin
+      state: directory
+    become: true
+    loop:
+      - root
+      - '{{ original_user }}'
+  - name: Create symlink for "bat"
+    ansible.builtin.file:
+      dest: /home/{{ item }}/.local/bin/bat
+      group: '{{ item }}'
+      owner: '{{ item }}'
+      src: /usr/bin/batcat
+      state: link
+    become: true
+    loop:
+      - root
+      - '{{ original_user }}'

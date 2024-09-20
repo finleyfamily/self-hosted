@@ -1,0 +1,15 @@
+  - name: Check for chezmoi binary
+    stat:
+      path: "{{ bin_dir }}/chezmoi"
+    register: chezmoi_installed
+
+  - name: chezmoi is installed
+    block:
+      - ansible.builtin.import_tasks: upgrade.yml
+      - ansible.builtin.import_tasks: update.yml
+        ignore_errors: yes
+    when: chezmoi_installed
+
+  - name: chezmoi not installed
+    ansible.builtin.import_tasks: install.yml
+    when: not chezmoi_installed

@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@itprokyle/cspell-dict": "^1.2.7",
+    "cspell": "^8.14.4"
+  },
+  "name": "self-hosted",
+  "version": "0.0.0"
+}

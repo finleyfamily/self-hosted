@@ -1,0 +1,73 @@
+# https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html
+
+ungrouped:
+  hosts:
+    homeassistant:
+      vars:
+        ansible_host: 10.0.0.35  # static IP set in Unifi
+        ansible_user: kyle
+    pihole:
+      vars:
+        ansible_host: 10.0.0.53  # static IP set in Unifi
+        ansible_user: kyle
+    truenas:
+      vars:
+        ansible_host: 10.0.0.130  # static IP set in Unifi
+        ansible_ssh_private_key_file: ~/.ssh/kyle.finley
+        ansible_user: admin
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/kyle.finley
+
+tpi:
+  hosts:
+    tpi1:
+      ansible_host: 10.0.1.10  # static IP set in Unifi
+      ansible_user: root
+    tpi2:
+      ansible_host: 10.0.1.20  # static IP set in Unifi
+      ansible_user: root
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/kyle.finley
+
+tpi1_nodes:
+  # hosts:
+  #   tpi1-node1:
+  #     vars:
+  #       ansible_host: 10.0.1.21  # static IP set in Unifi
+  #       ansible_user: kyle
+    # tpi1-node2:
+    #   vars:
+    #     ansible_host: 10.0.1.22  # static IP set in Unifi
+    # tpi1-node3:
+    #   vars:
+    #     ansible_host: 10.0.1.23  # static IP set in Unifi
+    #     ansible_user: kyle
+    # tpi1-node4:
+    #   vars:
+    #     ansible_host: 10.0.1.24  # static IP set in Unifi
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/kyle.finley
+
+tpi2_nodes:
+  hosts:
+    tpi2-node1:
+      vars:
+        ansible_host: 10.0.1.21  # static IP set in Unifi
+        ansible_user: kyle
+    # tpi2-node2:
+    #   vars:
+    #     ansible_host: 10.0.1.21  # static IP set in Unifi
+    tpi2-node3:
+      vars:
+        ansible_host: 10.0.1.23  # static IP set in Unifi
+        ansible_user: kyle
+    # tpi2-node4:
+    #   vars:
+    #     ansible_host: 10.0.1.21  # static IP set in Unifi
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/kyle.finley
+
+nodes:
+  children:
+    tpi1_nodes:
+    tpi2_nodes:

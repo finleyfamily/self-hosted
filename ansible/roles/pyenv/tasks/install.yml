@@ -1,0 +1,38 @@
+  - name: Install "pyenv"
+    ansible.builtin.git:
+      repo: https://github.com/pyenv/pyenv.git
+      dest: "{{ pyenv_path }}"
+      version: "{{ pyenv_version }}"
+      update: "{{ pyenv_update_git_install }}"
+
+  - name: Install "pyenv-ccache" plugin
+    ansible.builtin.git:
+      repo: https://github.com/pyenv/pyenv-ccache.git
+      dest: "{{ pyenv_path }}/plugins/ccache"
+      version: "{{ pyenv_plugin_ccache_version }}"
+      update: "{{ pyenv_update_git_install }}"
+    when: install_pyenv_plugin_ccache|bool
+
+  - name: Install "pyenv-default-packages" plugin
+    ansible.builtin.git:
+      repo: https://github.com/jawshooah/pyenv-default-packages.git
+      dest: "{{ pyenv_path }}/plugins/default-packages"
+      version: "{{ pyenv_plugin_default_packages_version }}"
+      update: "{{ pyenv_update_git_install }}"
+    when: install_pyenv_plugin_default_packages|bool
+
+  - name: Install "pyenv-doctor" plugin
+    ansible.builtin.git:
+      repo: https://github.com/pyenv/pyenv-doctor.git
+      dest: "{{ pyenv_path }}/plugins/pyenv-doctor"
+      version: "{{ pyenv_plugin_doctor_version }}"
+      update: "{{ pyenv_update_git_install }}"
+    when: install_pyenv_plugin_doctor|bool
+
+  - name: Install "pyenv-update" plugin
+    ansible.builtin.git:
+      repo: https://github.com/pyenv/pyenv-update.git
+      dest: "{{ pyenv_path }}/plugins/pyenv-update"
+      version: "{{ pyenv_plugin_update_version }}"
+      update: "{{ pyenv_update_git_install }}"
+    when: install_pyenv_plugin_update|bool

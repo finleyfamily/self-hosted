@@ -1,0 +1,21 @@
+  - name: upgrade Ubuntu systems
+    hosts:
+      - nodes
+      - pihole
+    become: true
+    tasks:
+      - name: upgrade all software
+        ansible.builtin.apt:
+          update_cache: true
+          upgrade: dist
+      - name: check if a reboot is required
+        stat:
+          path: /var/run/reboot-required
+          get_checksum: false
+        register: reboot_required_file
+      - name: reboot the server (if required).
+        reboot:
+        when: reboot_required_file.stat.exists == true
+      - name: remove dependencies that are no longer required
+        ansible.builtin.apt:
+          autoremove: true
