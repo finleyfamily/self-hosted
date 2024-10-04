@@ -1,6 +1,32 @@
   - name: Get the non-root user
     ansible.builtin.set_fact:
       original_user: '{{ ansible_env.get("SUDO_USER") or ansible_user_id }}'
+  - name: Add "diff-so-fancy" repository from PPA and install its signing key
+    block:
+      - name: Get "diff-so-fancy" page content
+        register: launchpad_response
+        uri:
+          headers:
+            Accept: "application/json"
+          method: GET
+          return_content: yes
+          url: "https://api.launchpad.net/devel/~aos1/+archive/ubuntu/diff-so-fancy"
+      - name: Parse JSON to extract signing key fingerprint
+        ansible.builtin.set_fact:
+          signing_key_fingerprint: "{{ launchpad_response.json.signing_key_fingerprint }}"
+      - name: Display the signing key fingerprint
+        ansible.builtin.debug:
+          msg: "The signing key fingerprint is: {{ signing_key_fingerprint }}"
+      - name: Add PPA repository
+        ansible.builtin.deb822_repository:
+          state: present
+          name: 'aos1-ubuntu-diff-so-fancy-{{ ansible_facts.distribution_release }}'
+          types: [deb]
+          uris: https://ppa.launchpadcontent.net/aos1/diff-so-fancy/ubuntu/
+          suites: ['{{ ansible_facts.distribution_release }}']
+          components: [main]
+          signed_by: 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ signing_key_fingerprint }}'
+        become: true
   - name: Install packages
     ansible.builtin.apt:
       name:
@@ -8,6 +34,7 @@
         - build-essential
         - ca-certificates
         - curl
+        - diff-so-fancy
         - direnv
         - git
         - net-tools
