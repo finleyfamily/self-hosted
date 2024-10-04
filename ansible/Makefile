@@ -9,8 +9,9 @@ help: ## show this message
 		$(MAKE) --no-print-directory -f .general-resources.mk help; \
 	fi
 
+# see https://github.com/ansible/ansible/issues/32554 for why "no_proxy" is needed (macOS only)
 nodes: ## ansible: run the "nodes" playbook
-	@ansible-playbook playbooks/nodes.yml;
+	@no_proxy="*" ansible-playbook playbooks/nodes.yml;
 
 setup: ## ansible: perform setup actions
 	@if [[ -f "requirements.yml" ]]; then \
