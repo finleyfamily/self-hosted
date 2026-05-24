@@ -1,9 +1,10 @@
   - name: Get the non-root user
     ansible.builtin.set_fact:
-      original_user: '{{ ansible_env.get("SUDO_USER") or ansible_user_id }}'
+      original_user: '{{ ansible_facts["env"].get("SUDO_USER") or ansible_facts["user_id"] }}'
   - name: Add "diff-so-fancy" repository from PPA and install its signing key
     block:
       - name: Get "diff-so-fancy" page content
+        check_mode: no
         register: launchpad_response
         uri:
           headers:

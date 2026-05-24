@@ -1,1 +1,1 @@
-bin_dir: "{{ ansible_env.HOME }}/.local/bin"
+bin_dir: '{{ ansible_facts["env"].HOME }}/.local/bin'
