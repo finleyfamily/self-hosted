@@ -1,6 +1,38 @@
   - name: Initialize nodes
     hosts: tpi1_nodes
+    vars:
+      nvme_name: nvme0n1  # Change to your specific device
+      mount_point: /mnt/data
+      fstype: ext4
     tasks:
+      - name: Check if NVMe drive is present on the system
+        set_fact:
+          drive_present: '{{ nvme_name in ansible_facts["devices"] }}'
+      - name: Check if NVMe drive is already mounted
+        set_fact:
+          is_mounted: "{{ ansible_facts['mounts'] | selectattr('device', 'equalto', '/dev/' + nvme_name) | list | length > 0 }}"
+        when: drive_present
+      - name: Format the disk with ext4
+        become: true
+        filesystem:
+          fstype: "{{ fstype }}"
+          dev: "{{ '/dev/' + nvme_name }}"
+        when: drive_present and not is_mounted
+      - name: Ensure mount point directory exists
+        become: true
+        file:
+          path: "{{ mount_point }}"
+          state: directory
+          mode: '0755'
+        when: drive_present
+      - name: Mount NVMe drive
+        become: true
+        ansible.posix.mount:
+          path: "{{ mount_point }}"
+          src: "{{ '/dev/' + nvme_name }}"
+          fstype: "{{ fstype }}"
+          state: mounted
+        when: drive_present
       - name: Include "ubuntu" role
         include_role:
           name: ubuntu
