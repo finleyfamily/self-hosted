@@ -6,10 +6,13 @@
     "maxNumberOfProblems": 100,
     "version": "0.2",
     "words": [
+        "authentik",
         "ccache",
         "gdbm",
         "libbz",
         "libncurses",
+        "pgadmin",
+        "traefik",
         "unifi"
     ]
 }

@@ -11,12 +11,12 @@ help: ## show this message
 
 # see https://github.com/ansible/ansible/issues/32554 for why "no_proxy" is needed (macOS only)
 nodes: ## ansible: run the "nodes" playbook
-	@no_proxy="*" ansible-playbook playbooks/nodes.yml;
+	@no_proxy="*" poetry run ansible-playbook playbooks/nodes.yml
 
 setup: ## ansible: perform setup actions
 	@if [[ -f "requirements.yml" ]]; then \
-		ansible-galaxy install --role-file requirements.yml
+		poetry run ansible-galaxy install --role-file requirements.yml
 	fi
 
 upgrade: ## ansible: run the "upgrade" playbook
-	@ansible-playbook playbooks/upgrade.yml;
+	@poetry run ansible-playbook playbooks/upgrade.yml;

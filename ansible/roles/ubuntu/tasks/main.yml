@@ -11,6 +11,6 @@
       name: docker
     when: install_docker|bool
 
-  - name: Install chezmoi
-    include_role:
-      name: chezmoi
+  # - name: Install chezmoi
+  #   include_role:
+  #     name: chezmoi

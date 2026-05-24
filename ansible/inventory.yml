@@ -3,18 +3,14 @@
 ungrouped:
   hosts:
     homeassistant:
-      vars:
-        ansible_host: 10.0.0.35  # static IP set in Unifi
-        ansible_user: kyle
+      ansible_host: 10.0.0.35  # static IP set in Unifi
+      ansible_user: kyle
     pihole:
-      vars:
-        ansible_host: 10.0.0.53  # static IP set in Unifi
-        ansible_user: kyle
+      ansible_host: 10.0.0.53  # static IP set in Unifi
+      ansible_user: kyle
     truenas:
-      vars:
-        ansible_host: 10.0.0.130  # static IP set in Unifi
-        ansible_ssh_private_key_file: ~/.ssh/kyle.finley
-        ansible_user: admin
+      ansible_host: 10.0.0.130  # static IP set in Unifi
+      ansible_user: admin
   vars:
     ansible_ssh_private_key_file: ~/.ssh/kyle.finley
 
@@ -30,37 +26,33 @@ tpi:
     ansible_ssh_private_key_file: ~/.ssh/kyle.finley
 
 tpi1_nodes:
-  # hosts:
-  #   tpi1-node1:
-  #     vars:
-  #       ansible_host: 10.0.1.21  # static IP set in Unifi
-  #       ansible_user: kyle
-    # tpi1-node2:
-    #   vars:
-    #     ansible_host: 10.0.1.22  # static IP set in Unifi
-    # tpi1-node3:
-    #   vars:
-    #     ansible_host: 10.0.1.23  # static IP set in Unifi
-    #     ansible_user: kyle
-    # tpi1-node4:
-    #   vars:
-    #     ansible_host: 10.0.1.24  # static IP set in Unifi
+  hosts:
+    tpi1-n1:
+      ansible_host: 10.0.1.111  # static IP set in Unifi
+      ansible_user: ubuntu
+    tpi1-n2:
+      ansible_host: 10.0.1.112  # static IP set in Unifi
+      ansible_user: ubuntu
+    tpi1-n3:
+      ansible_host: 10.0.1.113  # static IP set in Unifi  10.0.1.141
+      ansible_user: ubuntu
+    tpi1-n4:
+      ansible_host: 10.0.1.114  # static IP set in Unifi
+      ansible_user: ubuntu
   vars:
     ansible_ssh_private_key_file: ~/.ssh/kyle.finley
 
 tpi2_nodes:
   hosts:
     tpi2-node1:
-      vars:
-        ansible_host: 10.0.1.21  # static IP set in Unifi
-        ansible_user: kyle
+      ansible_host: 10.0.1.21  # static IP set in Unifi
+      ansible_user: kyle
     # tpi2-node2:
     #   vars:
     #     ansible_host: 10.0.1.21  # static IP set in Unifi
     tpi2-node3:
-      vars:
-        ansible_host: 10.0.1.23  # static IP set in Unifi
-        ansible_user: kyle
+      ansible_host: 10.0.1.23  # static IP set in Unifi
+      ansible_user: kyle
     # tpi2-node4:
     #   vars:
     #     ansible_host: 10.0.1.21  # static IP set in Unifi

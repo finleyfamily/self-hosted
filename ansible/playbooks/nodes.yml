@@ -1,6 +1,5 @@
   - name: Initialize nodes
-    hosts:
-      - tpi2-node3
+    hosts: tpi1_nodes
     tasks:
       - name: Include "ubuntu" role
         include_role:

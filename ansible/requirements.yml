@@ -1,0 +1,3 @@
+roles:
+  - name: bpbradley.komodo  # https://github.com/bpbradley/ansible-role-komodo
+    version: v2.1
