@@ -8,9 +8,11 @@
     "words": [
         "authentik",
         "ccache",
+        "equalto",
         "gdbm",
         "libbz",
         "libncurses",
+        "nvme",
         "pgadmin",
         "traefik",
         "unifi"
